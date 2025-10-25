@@ -485,7 +485,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Abdelhady Ali** - *Initial work* - [YourGitHub](https://github.com/Abdelhady-22)
+- **Abdelhady Ali** - *Initial work* - [MyGitHub](https://github.com/Abdelhady-22)
 
 ---
 
