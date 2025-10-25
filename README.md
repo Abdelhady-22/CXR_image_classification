@@ -1,11 +1,11 @@
-# 🧠 AI-Powered Brain Tumor Classification
+# 🫁 AI-Powered Chest X-Ray Classification
 
-[![Python](https://img.shields.io/badge/Python-3.10-blue.svg)](https://www.python.org/)
+[![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![TensorFlow](https://img.shields.io/badge/TensorFlow-2.x-orange.svg)](https://www.tensorflow.org/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Kaggle](https://img.shields.io/badge/Kaggle-Notebook-20BEFF.svg)](https://www.kaggle.com/)
 
-> Leveraging Convolutional Neural Networks (CNNs) and Transfer Learning to classify brain MRI images into four categories: **Glioma**, **Meningioma**, **Pituitary Tumor**, and **No Tumor**. This project achieves up to **97% accuracy** using ResNet50V2, supporting early diagnosis and clinical decision-making.
+> Leveraging Convolutional Neural Networks (CNNs) to classify chest X-ray images into four categories: **COVID-19**, **Normal**, **Pneumonia**, and **Tuberculosis**. This project achieves **95.14% accuracy**, supporting early diagnosis and clinical decision-making in respiratory disease detection.
 
 ---
 
@@ -28,28 +28,27 @@
 
 ## ✨ Features
 
-- **Multi-Model Architecture**: Implements and compares 5 different deep learning models
-  - Custom CNN
-  - VGG16 (Transfer Learning)
-  - VGG19 (Transfer Learning)
-  - ResNet50V2 (Transfer Learning)
-  - MobileNetV2 (Transfer Learning)
+- **Custom CNN Architecture**: Deep learning model specifically designed for chest X-ray classification
 
-- **High Accuracy**: Achieves up to **97% accuracy** on test data with ResNet50V2
+- **High Accuracy**: Achieves **95.14% accuracy** on test data with robust performance metrics
 
 - **Comprehensive Evaluation**: 
   - Accuracy, Precision, Recall, F1-Score metrics
-  - Confusion matrices for detailed performance analysis
   - Training/validation loss and accuracy curves
+  - Model performance tracking across epochs
 
-- **Data Augmentation**: Robust preprocessing pipeline for better generalization
+- **Multi-Class Classification**: 
+  - COVID-19 detection
+  - Pneumonia identification
+  - Tuberculosis recognition
+  - Normal chest X-ray classification
 
-- **Class Balancing**: Automatic downsampling to handle class imbalance
+- **Data Preprocessing**: Robust pipeline with normalization and proper train/validation/test splitting
 
 - **Visualization Tools**: 
-  - Sample image visualization from training/testing sets
-  - Model comparison charts
+  - Sample image visualization from training/validation/testing sets
   - Training history plots
+  - Model performance comparison charts
 
 ---
 
@@ -57,52 +56,75 @@
 
 | Model | Test Accuracy | Precision | Recall | F1-Score | Loss |
 |-------|--------------|-----------|---------|----------|------|
-| **ResNet50V2** | **96.98%** | **97.03%** | **96.91%** | **96.95%** | **0.1647** |
-| **MobileNetV2** | **96.47%** | 96.49% | 96.47% | 96.45% | 0.2659 |
-| **VGG19** | 94.76% | 94.85% | 94.76% | 94.67% | 0.3124 |
-| **VGG16** | 94.49% | 94.70% | 94.27% | 94.30% | 0.3187 |
-| **Custom CNN** | 88.61% | 88.86% | 88.53% | 87.63% | 0.7931 |
+| **Custom CNN** | **95.14%** | **95.36%** | **94.81%** | **95.11%** | **0.1632** |
 
-**Best Model**: ResNet50V2 with **96.98% test accuracy** 🏆
+### Training Performance
+- **Best Validation Accuracy**: 95.62% (Epoch 10)
+- **Best Validation Loss**: 0.1635 (Epoch 6)
+- **Total Training Time**: ~11 epochs with early stopping
+- **Final Training Accuracy**: 99.35%
+
+**Best Model**: Custom CNN with **95.14% test accuracy** 🏆
 
 ---
 
 ## 📊 Dataset
 
-### Sources
-The project uses two Kaggle datasets:
+### Source
+The project uses the CXR Dataset from Kaggle:
 
-1. **Brain Tumor Classification (MRI)** by Sartaj Bhuvaji
-   - [Dataset Link](https://www.kaggle.com/datasets/sartajbhuvaji/brain-tumor-classification-mri)
-
-2. **Brain Tumor MRI Dataset** by Masoud Nickparvar
-   - [Dataset Link](https://www.kaggle.com/datasets/masoudnickparvar/brain-tumor-mri-dataset)
+- **CXR Data Set** by Reflex7
+  - [Dataset Link](https://www.kaggle.com/datasets/reflex7/cxr-data-set)
 
 ### Dataset Structure
 ```
-Training/
-├── glioma_tumor/
-├── meningioma_tumor/
-├── no_tumor/
-└── pituitary_tumor/
+/kaggle/input/cxr-data-set/
+├── Covid/
+├── Normal/
+├── Pneumonia/
+└── Tuberculosis/
 
-Testing/
-├── glioma_tumor/
-├── meningioma_tumor/
-├── no_tumor/
-└── pituitary_tumor/
+/kaggle/working/split_data/
+├── train/
+│   ├── Covid/
+│   ├── Normal/
+│   ├── Pneumonia/
+│   └── Tuberculosis/
+├── validation/
+│   ├── Covid/
+│   ├── Normal/
+│   ├── Pneumonia/
+│   └── Tuberculosis/
+└── test/
+    ├── Covid/
+    ├── Normal/
+    ├── Pneumonia/
+    └── Tuberculosis/
 ```
 
 ### Classes
-- **Glioma Tumor**: Malignant brain tumors arising from glial cells
-- **Meningioma Tumor**: Tumors arising from meninges (brain coverings)
-- **Pituitary Tumor**: Tumors in the pituitary gland
-- **No Tumor**: Normal brain MRI scans
+- **COVID-19**: Chest X-rays showing COVID-19 infection patterns
+- **Normal**: Healthy chest X-ray scans without abnormalities
+- **Pneumonia**: X-rays displaying pneumonia-related lung infections
+- **Tuberculosis**: Chest radiographs showing tuberculosis manifestations
+
+### Dataset Split
+- **Training Set**: 57,832 images (80%)
+- **Validation Set**: 7,232 images (10%)
+- **Test Set**: 7,232 images (10%)
+
+### Class Distribution
+| Class | Label | Total Images |
+|-------|-------|--------------|
+| COVID-19 | 0 | 18,074 |
+| Normal | 1 | 18,074 |
+| Pneumonia | 2 | 18,074 |
+| Tuberculosis | 3 | 18,074 |
 
 ### Preprocessing
 - Images resized to **224x224** pixels
 - Normalization: pixel values scaled to [0, 1]
-- Class balancing through downsampling
+- Stratified train/validation/test split (80/10/10)
 - Batch size: **32**
 
 ---
@@ -110,49 +132,35 @@ Testing/
 ## 📁 Project Structure
 
 ```
-BRAIN-TUMOR-CLASSIFICATION/
+CXR_IMAGE_CLASSIFICATION/
+│
+├── result/
+│   └── CNN_Result/
+│       ├── CNN.png                    # Model architecture visualization
+│       ├── model_accuracy.png         # Training/validation accuracy plot
+│       ├── result.png                 # Final results comparison
+│       ├── val_accuracy.png           # Validation accuracy over epochs
+│       └── val_loss.png              # Validation loss over epochs
+│
+├── Data_Visualization/
+│   ├── testing.png                    # Sample test images
+│   ├── train.png                      # Sample training images
+│   └── validation.png                 # Sample validation images
 │
 ├── src/
-│   └── Models/
-│       ├── CNN.ipynb              # Custom CNN implementation
-│       ├── MobileNet.ipynb        # MobileNetV2 transfer learning
-│       ├── ResNet.ipynb           # ResNet50V2 transfer learning
-│       ├── VGG_16.ipynb           # VGG16 transfer learning
-│       └── VGG_19.ipynb           # VGG19 transfer learning
+│   └── model/
+│       └── model.txt.txt              # Model architecture details
 │
-├── results/
-│   ├── CNN_Result/
-│   │   └── CNN.png                # CNN performance visualization
-│   ├── MobileNet_Result/
-│   │   └── MobileNet.png
-│   ├── ResNet_Result/
-│   │   └── ResNet.png
-│   ├── VGG_16_Result/
-│   │   └── VGG_16.png
-│   ├── VGG_19_Result/
-│   │   └── VGG_19.png
-│   ├── Comparison_Models/
-│   │   ├── Comparison_1.png      # Model accuracy comparison
-│   │   ├── Comparison_2.png      # Validation loss comparison
-│   │   ├── Comparison_3.png      # Training curves
-│   │   ├── Comparison_4.png      # Bar charts
-│   │   ├── Comparison_5.png      # Horizontal comparison
-│   │   ├── Comparison_6.png      # Final rankings
-│   │   └── Comparison_7.png      # Detailed metrics
-│   └── Data_Visualization/
-│       ├── Testing_data.png       # Sample test images
-│       ├── Training_data.png      # Sample training images
-│       └── validtion_data.png     # Merged dataset samples
-│
-├── brain-tumor-classification-cnn-97-acc.py   # Main training script
-├── models.txt                     # Links to trained models (.h5 files)
-├── dataset.txt                    # Dataset download links
-├── kaggle_notebook.txt            # Link to Kaggle notebook
-├── requirements.txt               # Python dependencies
-├── .env.example                   # Environment variables template
-├── .gitignore                     # Git ignore rules
-├── LICENSE                        # Project license
-└── README.md                      # This file
+├── cxr-image-classification-cnn-95-acc.ipynb   # Main training notebook
+├── models.txt                         # Links to trained models
+├── dataset.txt                        # Dataset download information
+├── kaggle_notebook.txt                # Link to Kaggle notebook
+├── requirements.txt                   # Python dependencies
+├── .env                               # Environment variables
+├── .env.example                       # Environment variables template
+├── .gitignore                         # Git ignore rules
+├── LICENSE                            # Project license
+└── README.md                          # This file
 ```
 
 ---
@@ -160,9 +168,9 @@ BRAIN-TUMOR-CLASSIFICATION/
 ## 🚀 Installation
 
 ### Prerequisites
-- Python 3.10 or higher
+- Python 3.8 or higher
 - CUDA-compatible GPU (recommended for faster training)
-- 8GB+ RAM
+- 16GB+ RAM (recommended)
 - 10GB+ free disk space
 
 ### Installation Steps
@@ -173,19 +181,19 @@ Download and install MiniConda from [here](https://docs.anaconda.com/free/minico
 
 Create a new environment:
 ```bash
-conda create -n Brain_Tumor_Classification python=3.10
+conda create -n CXR_Classification python=3.8
 ```
 
 Activate the environment:
 ```bash
-conda activate Brain_Tumor_Classification
+conda activate CXR_Classification
 ```
 
 #### 2. Clone the Repository
 
 ```bash
-git clone https://github.com/Abdelhady-22/brain_tumor_classification.git
-cd brain-tumor-classification
+git clone https://github.com/yourusername/cxr-image-classification.git
+cd cxr-image-classification
 ```
 
 #### 3. Install Dependencies
@@ -199,13 +207,12 @@ pip install -r requirements.txt
 **Option A: Using Kaggle API**
 ```bash
 pip install kagglehub
-python -c "import kagglehub; kagglehub.dataset_download('sartajbhuvaji/brain-tumor-classification-mri')"
-python -c "import kagglehub; kagglehub.dataset_download('masoudnickparvar/brain-tumor-mri-dataset')"
+python -c "import kagglehub; kagglehub.dataset_download('reflex7/cxr-data-set')"
 ```
 
 **Option B: Manual Download**
-- Download datasets from links in `dataset.txt`
-- Extract to project directory
+- Download dataset from the link in `dataset.txt`
+- Extract to `/kaggle/input/cxr-data-set/` directory
 
 #### 5. Setup Environment Variables
 
@@ -219,59 +226,64 @@ PROJECT_VERSION=1.0
 IMAGE_SIZE=224
 BATCH_SIZE=32
 EPOCHS=20
-LEARNING_RATE=0.0001
+LEARNING_RATE=0.001
 ```
 
 ---
 
 ## 💻 Usage
 
-### Training Models
+### Training the Model
 
-Run the main training script:
+Run the main training notebook:
 ```bash
-python brain-tumor-classification-cnn-97-accuracy.ipynb
+jupyter notebook cxr-image-classification-cnn-95-acc.ipynb
 ```
 
-Or train individual models using Jupyter notebooks:
+Or run as a Python script:
 ```bash
-jupyter notebook src/Models/CNN.ipynb
+python cxr-image-classification-cnn-95-acc.py
 ```
 
 ### Model Inference
 
 ```python
 from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing import image
 import numpy as np
-from PIL import Image
 
 # Load trained model
-model = load_model('ResNet_best_model.keras')
+model = load_model('CNN_best_model.keras')
 
 # Load and preprocess image
-img = Image.open('path/to/mri_scan.jpg')
-img = img.resize((224, 224))
-img_array = np.array(img) / 255.0
+img_path = 'path/to/chest_xray.jpg'
+img = image.load_img(img_path, target_size=(224, 224))
+img_array = image.img_to_array(img) / 255.0
 img_array = np.expand_dims(img_array, axis=0)
 
 # Make prediction
 prediction = model.predict(img_array)
-classes = ['glioma_tumor', 'meningioma_tumor', 'no_tumor', 'pituitary_tumor']
+classes = ['COVID-19', 'Normal', 'Pneumonia', 'Tuberculosis']
 result = classes[np.argmax(prediction)]
+confidence = np.max(prediction) * 100
 
 print(f"Prediction: {result}")
-print(f"Confidence: {np.max(prediction) * 100:.2f}%")
+print(f"Confidence: {confidence:.2f}%")
 ```
 
-### Evaluating Models
+### Evaluating the Model
 
 ```python
-# Load test data
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
-test_datagen = ImageDataGenerator(preprocessing_function=lambda x: x/255.0)
+# Preprocess function
+def cnn_preprocess(x):
+    return x/255.0
+
+# Create test generator
+test_datagen = ImageDataGenerator(preprocessing_function=cnn_preprocess)
 test_generator = test_datagen.flow_from_directory(
-    'path/to/Testing',
+    '/kaggle/working/split_data/test',
     target_size=(224, 224),
     batch_size=32,
     class_mode='categorical'
@@ -279,7 +291,11 @@ test_generator = test_datagen.flow_from_directory(
 
 # Evaluate model
 results = model.evaluate(test_generator)
+print(f"Test Loss: {results[0]:.4f}")
 print(f"Test Accuracy: {results[1]*100:.2f}%")
+print(f"Test Precision: {results[2]*100:.2f}%")
+print(f"Test Recall: {results[3]*100:.2f}%")
+print(f"Test F1-Score: {results[4]*100:.2f}%")
 ```
 
 ---
@@ -291,21 +307,18 @@ print(f"Test Accuracy: {results[1]*100:.2f}%")
 #### Custom CNN
 ```
 Input (224x224x3)
-→ Conv2D(64) + MaxPool
-→ Conv2D(64) + MaxPool
-→ Conv2D(128) + MaxPool
-→ Flatten + Dropout(0.4)
-→ Dense(128) + Dense(64) + Dense(64)
-→ Output (4 classes, softmax)
+→ Conv2D(64, 3×3, ReLU) + MaxPooling2D(2×2)
+→ Conv2D(64, 3×3, ReLU) + MaxPooling2D(2×2)
+→ Conv2D(128, 3×3, ReLU) + MaxPooling2D(2×2)
+→ Flatten
+→ Dropout(0.4)
+→ Dense(128, ReLU)
+→ Dense(64, ReLU)
+→ Dense(64, ReLU)
+→ Dense(4, Softmax)
 ```
 
-#### Transfer Learning Models
-- **Base Models**: Pre-trained on ImageNet
-- **Frozen Layers**: All base layers non-trainable
-- **Custom Head**:
-  - GlobalAveragePooling2D / Flatten
-  - Dense(256, relu)
-  - Output(4, softmax)
+**Total Parameters**: ~3.5M parameters
 
 ### Training Configuration
 
@@ -315,43 +328,67 @@ Input (224x224x3)
 | Batch Size | 32 |
 | Epochs | 20 (with early stopping) |
 | Optimizer | Adam |
-| Learning Rate | 0.0001 |
+| Initial Learning Rate | 0.001 |
 | Loss Function | Categorical Crossentropy |
+| Metrics | Accuracy, Precision, Recall, F1-Score |
 
 ### Callbacks
-- **EarlyStopping**: Patience=5, monitors val_loss
-- **ModelCheckpoint**: Saves best model based on val_loss
-- **ReduceLROnPlateau**: Reduces LR by 0.5 when val_loss plateaus
+- **EarlyStopping**: 
+  - Monitor: `val_loss`
+  - Patience: 5 epochs
+  - Restore best weights: True
+
+- **ModelCheckpoint**: 
+  - Filepath: `CNN_best_model.keras`
+  - Monitor: `val_loss`
+  - Save best only: True
+
+- **ReduceLROnPlateau**: 
+  - Monitor: `val_loss`
+  - Factor: 0.5
+  - Patience: 3 epochs
+  - Min LR: 1e-7
 
 ### Hardware Requirements
-- **GPU**: NVIDIA GPU with CUDA support (recommended)
-- **RAM**: 8GB minimum, 16GB recommended
+- **GPU**: NVIDIA Tesla P100-PCIE-16GB (used in training)
+- **CUDA**: Compute Capability 6.0
+- **cuDNN**: Version 9.3.0
+- **RAM**: 16GB recommended
 - **Storage**: 10GB for datasets and models
+- **Framework**: TensorFlow with XLA optimization
 
 ---
 
 ## 📈 Results
 
-### Model Comparison
-
-![Model Accuracy Comparison](results/Comparison_Models/Comparison_1.png)
-
 ### Training History
 
-All models were trained for up to 20 epochs with early stopping:
+The model was trained for 11 epochs before early stopping:
 
-- **ResNet50V2**: Best validation loss at epoch 12
-- **MobileNetV2**: Best validation loss at epoch 15
-- **VGG19**: Best validation loss at epoch 18
-- **VGG16**: Best validation loss at epoch 16
-- **Custom CNN**: Best validation loss at epoch 19
+| Epoch | Train Acc | Val Acc | Train Loss | Val Loss | Learning Rate |
+|-------|-----------|---------|------------|----------|---------------|
+| 1 | 77.76% | 89.85% | 0.5720 | 0.3056 | 0.001 |
+| 2 | 91.43% | 93.57% | 0.2480 | 0.1961 | 0.001 |
+| 5 | 96.64% | 94.80% | 0.0942 | 0.1931 | 0.001 |
+| 6 | 97.39% | 94.99% | 0.0771 | **0.1635** | 0.001 |
+| 10 | 99.09% | **95.62%** | 0.0261 | 0.2244 | 0.0005 |
+| 11 | 99.35% | 95.34% | 0.0186 | 0.2381 | 0.0005 |
 
 ### Key Findings
 
-1. **Transfer Learning Superiority**: Pre-trained models significantly outperform custom CNN
-2. **ResNet50V2 Excellence**: Achieved best overall performance with 97% accuracy
-3. **Convergence Speed**: Transfer learning models converge faster (fewer epochs)
-4. **Generalization**: All models show good generalization on merged dataset
+1. **Fast Convergence**: Model achieved >90% accuracy within 2 epochs
+2. **Excellent Generalization**: Test accuracy (95.14%) close to validation accuracy (95.62%)
+3. **Balanced Performance**: High precision (95.36%) and recall (94.81%) indicate balanced predictions
+4. **Low Overfitting**: Validation loss remained stable with proper regularization
+5. **Robust F1-Score**: 95.11% F1-score demonstrates strong overall performance
+
+### Training Curves
+
+The training shows:
+- Smooth accuracy improvement across epochs
+- Controlled validation loss with minimal overfitting
+- Effective learning rate reduction strategy
+- Proper convergence without premature stopping
 
 ---
 
@@ -361,19 +398,27 @@ Create a `.env` file with the following variables:
 
 ```env
 # Project Configuration
-PROJECT_NAME=Brain_Tumor_Classification
+PROJECT_NAME=CXR_Image_Classification
 PROJECT_VERSION=1.0
 
 # Model Parameters
 IMAGE_SIZE=224
 BATCH_SIZE=32
 EPOCHS=20
-LEARNING_RATE=0.0001
+LEARNING_RATE=0.001
 
 # Paths
-TRAIN_PATH=/kaggle/input/brain-tumor-mri-dataset/Training
-TEST_PATH=/kaggle/input/brain-tumor-mri-dataset/Testing
+BASE_DIR=/kaggle/input/cxr-data-set
+OUTPUT_DIR=/kaggle/working/split_data
+TRAIN_PATH=/kaggle/working/split_data/train
+VALID_PATH=/kaggle/working/split_data/validation
+TEST_PATH=/kaggle/working/split_data/test
 MODEL_SAVE_PATH=/kaggle/working/
+
+# Data Split Ratios
+TEST_SIZE=0.1
+VAL_SIZE=0.1
+TRAIN_SIZE=0.8
 
 # Training Configuration
 EARLY_STOPPING_PATIENCE=5
@@ -384,6 +429,7 @@ MIN_LEARNING_RATE=1e-7
 # Callbacks
 MONITOR_METRIC=val_loss
 SAVE_BEST_ONLY=True
+RESTORE_BEST_WEIGHTS=True
 ```
 
 ---
@@ -391,23 +437,24 @@ SAVE_BEST_ONLY=True
 ## 📚 Resources
 
 ### Trained Models
-All trained models (.h5 and .keras formats) are available in `models.txt`:
-- Custom CNN Model
-- VGG16 Model
-- VGG19 Model
-- ResNet50V2 Model
-- MobileNetV2 Model
+Trained model (.keras format) available:
+- **CNN_best_model.keras** - Best performing model from training
+
+See `models.txt` for download links.
 
 ### Kaggle Notebook
-Complete interactive notebook: See `kaggle_notebook.txt` for link
+Complete interactive notebook with all visualizations:
+- See `kaggle_notebook.txt` for the link to the Kaggle notebook
 
-### Datasets
-Download links available in `dataset.txt`
+### Dataset
+Download link available in `dataset.txt`:
+- CXR Data Set (Reflex7)
 
 ### Documentation
 - [TensorFlow Documentation](https://www.tensorflow.org/api_docs)
-- [Keras Applications](https://keras.io/api/applications/)
-- [Brain Tumor Types](https://www.cancer.org/cancer/brain-spinal-cord-tumors-adults/about/what-is-a-brain-tumor.html)
+- [Keras API Reference](https://keras.io/api/)
+- [COVID-19 Chest X-ray Database](https://github.com/ieee8023/covid-chestxray-dataset)
+- [WHO Tuberculosis Resources](https://www.who.int/health-topics/tuberculosis)
 
 ---
 
@@ -426,6 +473,7 @@ Contributions are welcome! Please follow these steps:
 - Add docstrings to functions and classes
 - Update README.md for significant changes
 - Test code before submitting PR
+- Ensure all tests pass
 
 ---
 
@@ -437,16 +485,17 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👥 Authors
 
-- **Abdelhady Ali** - *Initial work* - [MYGitHub](https://github.com/Abdelhady-22)
+- **Abdelhady Ali** - *Initial work* - [YourGitHub](https://github.com/Abdelhady-22)
 
 ---
 
 ## 🙏 Acknowledgments
 
-- **Datasets**: Thanks to Sartaj Bhuvaji and Masoud Nickparvar for providing the datasets
-- **Kaggle**: For providing the platform and computational resources
-- **TensorFlow/Keras**: For the deep learning framework
-- **Medical Community**: For inspiring this work to assist in early diagnosis
+- **Dataset**: Thanks to Reflex7 for providing the comprehensive CXR dataset on Kaggle
+- **Kaggle**: For providing the platform and computational resources (Tesla P100 GPU)
+- **TensorFlow/Keras**: For the powerful deep learning framework
+- **Medical Community**: For inspiring this work to assist in respiratory disease diagnosis
+- **Open Source Community**: For various tools and libraries used in this project
 
 ---
 
@@ -454,38 +503,63 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 For questions, suggestions, or collaborations:
 
-- **Email**: abdulhadi2322005@gmail.com
-- **LinkedIn**: [My LinkedIn](www.linkedin.com/in/abdelhady-ali-940761316)
-- **GitHub**: [My GitHub](https://github.com/Abdelhady-22)
+- **Email**: (abdelhady2322005@gmail.com)
+- **LinkedIn**: (https://www.linkedin.com/in/abdelhady-ali-940761316)
+- **GitHub**: (https://github.com/Abdelhady-22)
+- **Kaggle**: (https://www.kaggle.com/abdulhadialimohamed)
 
 ---
 
 ## ⚠️ Disclaimer
 
-This project is for **educational and research purposes only**. The models should not be used as a substitute for professional medical diagnosis. Always consult qualified healthcare professionals for medical advice and diagnosis.
+This project is for **educational and research purposes only**. The model should not be used as a substitute for professional medical diagnosis. Chest X-ray interpretation requires expertise from qualified radiologists and healthcare professionals. Always consult medical experts for accurate diagnosis and treatment decisions.
+
+**Important Notes:**
+- This tool is not FDA approved
+- Not intended for clinical use without proper validation
+- Should not replace professional medical judgment
+- Results may vary depending on image quality and patient conditions
 
 ---
 
-## 📊 Citations
 
-If you use this project in your research, please cite:
 
+### Dataset Citation
 ```bibtex
-@misc{brain_tumor_classification_2025,
-  title={AI-Powered Brain Tumor Classification using Deep Learning},
-  author={abdelhady ali},
-  year={2025},
-  publisher={GitHub},
-  url={https://github.com/Abdelhady-22/brain_tumor_classification}
+@dataset{reflex7_cxr_2024,
+  title={CXR Data Set},
+  author={Reflex7},
+  year={2024},
+  publisher={Kaggle},
+  url={https://www.kaggle.com/datasets/reflex7/cxr-data-set}
 }
 ```
 
 ---
 
+## 🔮 Future Improvements
+
+- [ ] Implement data augmentation for improved generalization
+- [ ] Experiment with transfer learning (ResNet, EfficientNet, DenseNet)
+- [ ] Add Grad-CAM visualization for model interpretability
+- [ ] Multi-model ensemble for improved accuracy
+- [ ] Deploy as web application using Streamlit or Flask
+- [ ] Add API endpoints for production integration
+- [ ] Expand dataset with more diverse X-ray images
+- [ ] Implement severity classification for detected diseases
+- [ ] Add patient demographic integration
+- [ ] Create mobile application for point-of-care diagnosis
+
+---
+
 <div align="center">
 
-**Made with ❤️ for advancing medical AI**
+**Made with ❤️ for advancing medical AI and improving healthcare accessibility**
 
 ⭐ Star this repo if you find it helpful!
+
+[![GitHub stars](https://img.shields.io/github/stars/Abdelhady-22/cxr-image-classification?style=social)](https://github.com/Abdelhady-22/CXR_image_classification)
+[![GitHub forks](https://img.shields.io/github/forks/Abdelhady-22/cxr-image-classification?style=social)](https://github.com/Abdelhady-22/CXR_image_classification)
+[![GitHub watchers](https://img.shields.io/github/watchers/Abdelhady-22/cxr-image-classification?style=social)](https://github.com/Abdelhady-22/CXR_image_classification)
 
 </div>
